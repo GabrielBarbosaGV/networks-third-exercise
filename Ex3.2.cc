@@ -11,9 +11,6 @@ using namespace ns3;
 NS_LOG_COMPONENT_DEFINE("FirstExerciseLogger");
 
 int main(int argc, char* argv[]) {
-  CommandLine cmd(__FILE__);
-  cmd.Parse(argc, argv);
-
   Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue ("ns3::TcpReno"));
 
   PointToPointHelper pointToPointRouter;
@@ -43,7 +40,7 @@ int main(int argc, char* argv[]) {
       Address()
   );
 
-  firstSourceHelper.SetConstantRate(DataRate("5Mbps"), 1024);
+  firstSourceHelper.SetConstantRate(DataRate("10Mbps"), 1024);
 
   AddressValue firstDestinationAddress(InetSocketAddress(pointToPointDumbbell.GetRightIpv4Address(0), 1000));
 
