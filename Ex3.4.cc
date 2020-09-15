@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
   CommandLine cmd(__FILE__);
   cmd.Parse(argc, argv);
 
-  Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue ("ns3::TcpVegas"));
+  Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue ("ns3::TcpWestwood"));
 
   PointToPointHelper pointToPointRouter;
   pointToPointRouter.SetDeviceAttribute("DataRate", StringValue("10Mbps"));
@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
   sinkNodes.Add(pointToPointDumbbell.GetRight(0));
   sinkNodes.Add(pointToPointDumbbell.GetRight(1));
 
-  pointToPointRouter.EnablePcap("Ex3.3", sinkNodes);
+  pointToPointRouter.EnablePcap("Ex3", sinkNodes);
 
   Ipv4GlobalRoutingHelper::PopulateRoutingTables();
 
@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   GnuplotHelper plotHelper;
 
   plotHelper.ConfigurePlot(
-    "congestion-vegas",
+    "congestion-westwood",
     "Tamanho da Janela de Congestionamento Vs. Tempo",
     "Tempo (Segundos)",
     "Tamanho da Janela de Congestionamento"

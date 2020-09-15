@@ -11,7 +11,10 @@ using namespace ns3;
 NS_LOG_COMPONENT_DEFINE("FirstExerciseLogger");
 
 int main(int argc, char* argv[]) {
-  Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue ("ns3::TcpReno"));
+  CommandLine cmd(__FILE__);
+  cmd.Parse(argc, argv);
+
+  Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue ("ns3::TcpCubic"));
 
   PointToPointHelper pointToPointRouter;
   pointToPointRouter.SetDeviceAttribute("DataRate", StringValue("10Mbps"));
@@ -40,7 +43,7 @@ int main(int argc, char* argv[]) {
       Address()
   );
 
-  firstSourceHelper.SetConstantRate(DataRate("10Mbps"), 1024);
+  firstSourceHelper.SetConstantRate(DataRate("5Mbps"), 1024);
 
   AddressValue firstDestinationAddress(InetSocketAddress(pointToPointDumbbell.GetRightIpv4Address(0), 1000));
 
@@ -117,7 +120,7 @@ int main(int argc, char* argv[]) {
   GnuplotHelper plotHelper;
 
   plotHelper.ConfigurePlot(
-    "congestion-window",
+    "congestion-cubic",
     "Tamanho da Janela de Congestionamento Vs. Tempo",
     "Tempo (Segundos)",
     "Tamanho da Janela de Congestionamento"
